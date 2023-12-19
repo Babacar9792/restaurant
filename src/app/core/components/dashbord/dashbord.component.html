@@ -1,0 +1,13 @@
+<div class="container-dashbord">
+  <mat-selection-list #shoes [multiple]="false" color="primary">
+      <mat-list-item *ngFor="let route of typesOfShoes;" class="mat-list-item" color="primary" routerLink="/{{route.uri}}">
+         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home" color="primary" ></mat-icon> 
+         <h6>{{route.value}}</h6>
+      </mat-list-item>
+  </mat-selection-list>
+  <div class="logOut">
+    <h3>logout</h3>
+    <mat-icon aria-hidden="false" aria-label="Example exit_to_app icon" fontIcon="exit_to_app" color="warning"></mat-icon>
+  </div>
+  
+</div>

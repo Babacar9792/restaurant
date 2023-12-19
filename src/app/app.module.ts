@@ -6,6 +6,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { SharedModule } from './shared/shared.module';
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent
@@ -14,7 +21,11 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    CoreModule
+    CoreModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    SharedModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
