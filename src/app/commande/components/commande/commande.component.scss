@@ -17,7 +17,7 @@
     // padding: 12em;
 }
 
-.header-commande div{
+.header-commande div:nth-child(1), .header-commande div:nth-child(2){
     width: 30%;
     height: 90%;
     display: flex;
@@ -43,4 +43,16 @@ table {
 .btn-action{
     margin: 3px 5px;
     
+}
+.periode-commande{
+    display: flex;
+    width: 30%;
+    height: 90%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2em;
+}
+.periode-commande mat-icon{
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
 }

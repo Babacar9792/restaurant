@@ -4,8 +4,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Commande } from '../../interfaces/commande';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { CommandeService } from '../../services/commande.service';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, filter, takeUntil } from 'rxjs';
 import { ResponseData } from '../../interfaces/response-data';
+import { MatDialog } from '@angular/material/dialog';
+import { DetailComponent } from './detail/detail.component';
 
 @Component({
   selector: 'app-commande',
@@ -19,30 +21,35 @@ export class CommandeComponent implements AfterViewInit, OnInit, OnDestroy{
 
   data !: Observable<ResponseData<Commande>>;
 
-  dataUnsubscribe : Subject<Boolean> = new Subject();
+  dataUnsubscribe : Subject<boolean> = new Subject();
 
   displayedColumns: string[] = ['checkbox','numero', 'intitule', 'telephone','etat', 'action'];
 
   dataSource = new MatTableDataSource<Commande>(this.ELEMENT_DATA);
 
   commandesToDelete : number[] = [];
+  dayForCommande : Date = new Date();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private commandeService : CommandeService){
+  constructor(private commandeService : CommandeService, public dialog: MatDialog){
     
   }
+  /** */
   ngOnDestroy(): void {
     this.dataUnsubscribe.next(true);
-    // throw new Error('Method not implemented.');
   }
-
-  
-    
+  /** */
 
   ngOnInit(): void {
+    this.dayForCommande = new Date();
     this.data = this.commandeService.getAllCommande(1, "");
-    this.data.pipe(takeUntil(this.dataUnsubscribe)).subscribe({
+    this.getData(this.data, 1, "");
+  }
+/** */
+  getData(data : Observable<ResponseData<Commande>> ,user_id : number, date : string){
+    this.dataSource = new MatTableDataSource<Commande>([]);
+    data.pipe(takeUntil(this.dataUnsubscribe)).subscribe({
       next : (value) =>{
         if(value.status){
           this.ELEMENT_DATA = value.data;
@@ -57,21 +64,24 @@ export class CommandeComponent implements AfterViewInit, OnInit, OnDestroy{
       },
       complete : ()=>{
         console.log("completed");
-        
       }
     });
   }
+  /** */
   
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
+  /** */
 
-  filtreCommande(event : Event){
+  filtreCommande(event : string){
+  this.data =  this.commandeService.filterData(event, 1, "");
+  this.getData(this.data, 1,"");
   }
+  /** */
 
   chooseToDelete(id : number, event : MatCheckboxChange){
-    console.log(event.checked);
     if (event.checked) {
       this.commandesToDelete.push(id);
     }
@@ -79,11 +89,80 @@ export class CommandeComponent implements AfterViewInit, OnInit, OnDestroy{
       this.commandesToDelete = this.commandesToDelete.filter((element : number) => element != id )
     }
   }
+  /** */
 
   deleteCommande(){
-    // console.log(this.commandesToDelete);
     this.commandeService.deleteCommande(this.commandesToDelete).subscribe();
+  }
+  /** */
+
+  openDialog() {
+    const dialogRef = this.dialog.open(DetailComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  /** */
+
+  nextMonth(nextOrPreview : string){
+    switch (nextOrPreview) {
+      case 'next':
+                  if (this.dayForCommande.getMonth() == 11) {
+                        this.dayForCommande = new Date(this.dayForCommande.getFullYear() + 1, 0, 10);
+                  }else{ 
+                        this.dayForCommande = new Date(this.dayForCommande.getFullYear() , this.dayForCommande.getMonth()+1, 10);
+      }
+      break;
+      case 'previous': 
+                  if (this.dayForCommande.getMonth() == 0 ) {
+                        this.dayForCommande = new Date(this.dayForCommande.getFullYear() - 1, 11, 10);
+                  }else{ 
+                        this.dayForCommande = new Date(this.dayForCommande.getFullYear() , this.dayForCommande.getMonth()-1, 10);
+      }
+      break;
+      default:
+        this.dayForCommande = new Date();
+        break;
+    }
     
+  }
+  /** */
+  valideCommande(numero_commande : number){
+    this.commandeService.valideCommande(1,numero_commande).subscribe({
+      next : (val)=>{
+        if(val.status){
+          let index = this.ELEMENT_DATA.findIndex(ele => ele.numero_commande == numero_commande);
+          this.ELEMENT_DATA[index].etat = "Validée"; 
+        }
+        alert(val.message);
+      },
+      error : (err)=>{
+        alert(err.error.message);
+      },
+      complete : ()=>{
+        
+      }
+    });
+  }
+
+  annuleCommande(numero_commande : number){
+    // alert(numero_commande);
+    this.commandeService.annuleCommande(1,numero_commande).subscribe({
+      next : (val)=>{
+        if(val.status){
+          // let index = this.ELEMENT_DATA.findIndex(ele => ele.numero_commande == numero_commande);
+          this.ELEMENT_DATA = this.ELEMENT_DATA.filter(ele => ele.numero_commande != numero_commande); 
+          this.dataSource = new MatTableDataSource<Commande>(this.ELEMENT_DATA);  
+        }
+        alert(val.message);
+      },
+      error : (err)=>{
+        alert(err.error.message);
+      },
+      complete : ()=>{
+        
+      }
+    });
   }
 
 

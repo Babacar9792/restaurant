@@ -5,9 +5,10 @@
                 <mat-label>Filtrer les commandes</mat-label>
                 <mat-select (valueChange)="filtreCommande($event)">
                   <mat-option>Aucun</mat-option>
-                  <mat-option value="option1">validée</mat-option>
-                  <mat-option value="option2">En Attente</mat-option>
-                  <mat-option value="option3">Annulée</mat-option>
+                  <mat-option value="Tout">Tout</mat-option>
+                  <mat-option value="En cours">En cours</mat-option>
+                  <mat-option value="Validée">Validée</mat-option>
+                  <mat-option value="Annulée">Annulée</mat-option>
                 </mat-select>
               </mat-form-field>
               <div>
@@ -30,8 +31,10 @@
                       </button>
           </div>
         </div>
-        <div>
-            3
+        <div class="periode-commande">
+          <mat-icon (click)="nextMonth('previous')">arrow_back_ios</mat-icon>
+          <p> <strong> {{dayForCommande | monthYearDate}}  </strong> </p>
+          <mat-icon (click)="nextMonth('next')">arrow_forward_ios</mat-icon>
         </div>
     </div>
     <div class="main-commande">
@@ -73,9 +76,9 @@
               <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> action </th>
                 <td mat-cell *matCellDef="let element">
-                    <button mat-raised-button class="btn-action" color="primary" [disabled]="element.etat == 'Validée'" >Valider</button>
-                    <button mat-raised-button class="btn-action" color="accent">Detail</button>
-                    <button mat-raised-button class="btn-action" color="warn">Annuler</button>
+                    <button mat-raised-button class="btn-action" color="primary" [disabled]="element.etat == 'Validée'" (click)="valideCommande(element.numero_commande)" >Valider</button>
+                    <button mat-raised-button class="btn-action" color="accent" (click)="openDialog()">Detail</button>
+                    <button mat-raised-button class="btn-action" color="warn" (click)="annuleCommande(element.numero_commande)">Annuler</button>
                      <!-- {{element.id}} -->
                 </td>
               </ng-container>
