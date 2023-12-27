@@ -15,7 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatDialogModule} from '@angular/material/dialog';
-
+import { MatSortModule} from '@angular/material/sort';
 
 
 
@@ -23,6 +23,7 @@ import { MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
+   
 
     
   ],
@@ -41,7 +42,9 @@ import { MatDialogModule} from '@angular/material/dialog';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSortModule,
+    // BrowserAnimationsModule, 
 
     
   ],
@@ -58,7 +61,10 @@ import { MatDialogModule} from '@angular/material/dialog';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSortModule,
+    // BrowserAnimationsModule 
+
 
   ]
 })

@@ -9,6 +9,8 @@ import { CoreModule } from './core/core.module';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { SharedModule } from './shared/shared.module';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 
 

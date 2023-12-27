@@ -4,21 +4,24 @@
             <mat-form-field>
                 <mat-label>Filtrer les commandes</mat-label>
                 <mat-select (valueChange)="filtreCommande($event)">
-                  <mat-option>Aucun</mat-option>
-                  <mat-option value="Tout">Tout</mat-option>
+                  <!-- <mat-option>Aucun</mat-option> -->
+                  <mat-option value="">Tout</mat-option>
                   <mat-option value="En cours">En cours</mat-option>
                   <mat-option value="Validée">Validée</mat-option>
                   <mat-option value="Annulée">Annulée</mat-option>
                 </mat-select>
               </mat-form-field>
               <div>
-                    <button mat-raised-button class="btn-action" color="primary">Ajouter</button>
+                  <button mat-raised-button class="btn-action" color="primary">
+                    <mat-icon>add_circle</mat-icon>
+                    Ajouter
+                  </button>
               </div>
         </div>
         <div>
             <mat-form-field class="example-form-field">
                 <mat-label>Rechercher une commande</mat-label>
-                <input matInput type="text" placeholder="La recherche commence à partir de trois caractères" >
+                <input matInput type="text" placeholder="La recherche commence à partir de trois caractères" (keyup)="applyFilter($event)" >
               </mat-form-field>
               <div>
                 <button mat-raised-button class="btn-action"
@@ -26,8 +29,8 @@
                         [disabled]="commandesToDelete.length == 0"
                          (click)="deleteCommande()"
                         >
+                        <mat-icon>delete</mat-icon>
                         Supprimer
-                        <!-- <mat-progress-bar color="warn"></mat-progress-bar> -->
                       </button>
           </div>
         </div>
@@ -39,52 +42,61 @@
     </div>
     <div class="main-commande">
         <div class="mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource">
+            <table mat-table [dataSource]="dataSource" matSort >
           
               <!-- Position Column -->
               <ng-container matColumnDef="checkbox">
-                <th mat-header-cell *matHeaderCellDef>  </th>
+                <th mat-header-cell *matHeaderCellDef >  </th>
                 <td mat-cell *matCellDef="let element">
-                    <p><mat-checkbox value="{{element.id}}" (change)="chooseToDelete(element.id, $event)" color="warn"  [checked]="commandesToDelete.includes(element.id)"></mat-checkbox></p> 
+                    <p><mat-checkbox value="{{element.numero_commande}}" (change)="chooseToDelete(element.numero_commande, $event)" color="warn"  [checked]="commandesToDelete.includes(element.id)"></mat-checkbox></p> 
                 </td>
               </ng-container>
           
               <!-- Numero commande -->
-              <ng-container matColumnDef="numero">
-                <th mat-header-cell *matHeaderCellDef> Numero </th>
+              <ng-container matColumnDef="numero_commande">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Numero </th>
                 <td mat-cell *matCellDef="let element"> {{element.numero_commande}} </td>
               </ng-container>
           
               <!-- Prenom et nom du client, on utilise un pipe qui récupere l'objet du client et concaténe son nom et son prénom -->
-              <ng-container matColumnDef="intitule">
-                <th mat-header-cell *matHeaderCellDef> prenom et nom du client </th>
+              <ng-container matColumnDef="client.prenom"  >
+                <th mat-header-cell *matHeaderCellDef > Prenom et Nom du client </th>
                 <td mat-cell *matCellDef="let element"> {{element.client | intituleCommande}} </td>
               </ng-container>
               <!-- telephone -->
-              <ng-container matColumnDef="telephone">
-                <th mat-header-cell *matHeaderCellDef> Telephone du client </th>
-                <td mat-cell *matCellDef="let element"> {{element.client.telephone ?? "aucune adresse n'a été fournie" }} </td>
+              <ng-container matColumnDef="client.telephone">
+                <th mat-header-cell *matHeaderCellDef > Telephone du client </th>
+                <td mat-cell *matCellDef="let element"> {{element.client.telephone}} </td>
               </ng-container>
 
               <!-- etat -->
               <ng-container matColumnDef="etat">
-                <th mat-header-cell *matHeaderCellDef> etat de la commande</th>
-                <td mat-cell *matCellDef="let element"> {{element.etat ?? "null" }} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Etat de la commande</th>
+                <td mat-cell *matCellDef="let element"> {{element.etat }} </td>
               </ng-container>
+
+                  <!-- date de la commande -->
+                  <ng-container matColumnDef="date_commande">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date de la commande</th>
+                    <td mat-cell *matCellDef="let element"> {{element.date_commande }} </td>
+                  </ng-container>
                 
               <!-- colonne des boutons detail, annuler, valider -->
               <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef> action </th>
+                <th mat-header-cell *matHeaderCellDef> Action </th>
                 <td mat-cell *matCellDef="let element">
-                    <button mat-raised-button class="btn-action" color="primary" [disabled]="element.etat == 'Validée'" (click)="valideCommande(element.numero_commande)" >Valider</button>
-                    <button mat-raised-button class="btn-action" color="accent" (click)="openDialog()">Detail</button>
-                    <button mat-raised-button class="btn-action" color="warn" (click)="annuleCommande(element.numero_commande)">Annuler</button>
-                     <!-- {{element.id}} -->
+                    <button mat-raised-button class="btn-action" color="primary" [disabled]="element.etat != 'En cours'" (click)="valideCommande(element.numero_commande)" >Valider</button>
+                    <button mat-raised-button class="btn-action" color="accent" (click)="openDialog(element)">Detail</button>
+                    <button mat-raised-button class="btn-action" color="warn" (click)="annuleCommande(element.numero_commande)" [disabled]="element.etat == 'Annulée'" > 
+                      Annuler
+                      <mat-icon>archive</mat-icon>
+                    </button>
+                   
                 </td>
               </ng-container>
           
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" [@displayItem]="stateToAnimate"></tr>
             </table>
           
             <mat-paginator [pageSizeOptions]="[5, 10, 20]"
