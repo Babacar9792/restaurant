@@ -1,1 +1,37 @@
-<p>article works!</p>
+<div class="container-article">
+    <div class="container-carousel-menu">
+        <div class="navigation-arrow-left">
+            <mat-icon (click)="displayOtherMenu('-1')">arrow_back_ios</mat-icon>
+        </div>
+        <div class="carousel-menu">
+            <app-caroucel [menu]="menuForCarousel[currentMenuIndex]" [@displayItem]="stateToAnimate" ></app-caroucel>
+        </div>
+        <div class="navigation-arrow-right">
+            <mat-icon (click)="displayOtherMenu('1')">arrow_forward_ios</mat-icon>
+        </div>
+    </div>
+    <div class="container-list-article">
+        <h3>Liste des articles disponible </h3>
+        <div class="head-list-article">
+            <div class="input-box" #inputBox>
+                <input type="text" placeholder="Search..."  />
+                <span class="search">
+                  <mat-icon (click)="openSearhInput(inputBox)" class="uil uil-search search-icon">search</mat-icon>
+                </span>
+                <mat-icon class="uil uil-times close-icon" (click)="closeSearhInput(inputBox)" >clear</mat-icon>
+            </div>
+            <div class="container-button">
+                <button mat-raised-button class="btn-action" color="primary">
+                    <mat-icon>add</mat-icon>
+                    Valider
+                </button>
+            </div>
+        </div>
+        <div class="list-article">
+            <div class="card-article" *ngFor="let article of listeArticles">
+                <app-card-article [article]="article"></app-card-article>
+            </div>
+        </div>
+    </div>
+
+</div>

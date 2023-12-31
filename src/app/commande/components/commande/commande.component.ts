@@ -5,12 +5,13 @@ import { Commande } from '../../interfaces/commande';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { CommandeService } from '../../services/commande.service';
 import { Observable, Subject, filter, takeUntil } from 'rxjs';
-import { ResponseData } from '../../interfaces/response-data';
+// import { ResponseData } from '../../interfaces/response-data';
 import { MatDialog } from '@angular/material/dialog';
 import { DetailComponent } from './detail/detail.component';
 import {MatSort} from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ResponseData } from 'src/app/shared/interfaces/response-data';
 
 
 @Component({

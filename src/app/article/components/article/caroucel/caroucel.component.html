@@ -1,0 +1,10 @@
+
+<div class="container-caroucel">
+    <h5>{{menu.libelle}}</h5>
+    <div class="container-article">
+        <div class="card-article" *ngFor="let article of menu.articles">
+            <app-card-article [article]="article"></app-card-article>
+        </div>
+    </div>
+
+</div>

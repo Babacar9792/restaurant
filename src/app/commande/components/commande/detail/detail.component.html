@@ -1,18 +1,23 @@
 <h2 mat-dialog-title>Detail de ma commande</h2>
 <mat-dialog-content class="mat-typography">
-  <h3>Commande numero : {{data.numero_commande}}</h3>
-  <h3> Date de la commande: {{data.date_commande}}</h3>
-  
-
-  <marquee behavior="" direction=""> <h3>Information du client</h3></marquee>
-  <p><strong>Prenom</strong> : {{data.client | intituleCommande}} </p>
-  <p><strong>Telephone</strong> : {{data.client.telephone ?? "aucun telephone renseigné"}} </p>
-  <p><strong>email</strong> : {{data.client.mail ?? "aucun email renseigné" }} </p>
-  <p><strong>Adresse</strong> : {{data.client.adresse ?? "aucune adresse fournie"}} </p>
-
-  
+      <h3>Commande numero : {{data.numero_commande}}</h3>
+      <h3> Date de la commande: {{data.date_commande}}</h3>
+      <marquee behavior="" direction="">
+          <h3>Information du client</h3>
+      </marquee>
+      <p>
+          <strong>Prenom</strong> : {{data.client | intituleCommande}} 
+      </p>
+      <p>
+          <strong>Telephone</strong> : {{data.client.telephone ?? "aucun telephone renseigné"}}
+      </p>
+      <p>
+          <strong>email</strong> : {{data.client.mail ?? "aucun email renseigné" }} 
+      </p>
+      <p>
+          <strong>Adresse</strong> : {{data.client.adresse ?? "aucune adresse fournie"}} 
+      </p>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <!-- <button mat-button mat-dialog-close color="warn">Annulé la commande</button> -->
+<mat-dialog-actions align="end" >
   <button mat-button [mat-dialog-close]="true" cdkFocusInitial color="accent">Fermer</button>
 </mat-dialog-actions>
