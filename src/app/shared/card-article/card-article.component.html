@@ -2,7 +2,7 @@
     <div class="card">
         <div class="bg">
             <div class="container-button">
-                <mat-icon color="accent" >info</mat-icon>
+                <mat-icon color="accent" (click)="displayArticleById(article.id)" >info</mat-icon>
             </div>
             <img src="https://media.istockphoto.com/id/1482150115/photo/spaghetti-with-bolognese-sauce-isolated-on-white-background.jpg?s=1024x1024&w=is&k=20&c=dfKS2dn3U0bYX9F2WXKprooUuni_SfrUsggiLfkHoN4=" alt="">
             <h6>Nom : {{article.libelle}}</h6>
@@ -13,5 +13,4 @@
         </div>
         <div class="blob"></div>
       </div>
-
 </div>

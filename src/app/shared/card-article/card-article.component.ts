@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Article } from 'src/app/shared/interfaces/article';
 
 @Component({
@@ -8,5 +8,12 @@ import { Article } from 'src/app/shared/interfaces/article';
 })
 export class CardArticleComponent {
   @Input() article : Article = <Article>{};
+  @Output() artcleIdToDisplay = new EventEmitter<number>();
 
+
+
+  displayArticleById(id : number){
+    // console.log(id);
+    this.artcleIdToDisplay.emit(id);
+  }
 }

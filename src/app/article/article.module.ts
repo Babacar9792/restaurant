@@ -5,14 +5,13 @@ import { ArticleRoutingModule } from './article-routing.module';
 import { ArticleComponent } from './components/article/article.component';
 import { SharedModule } from '../shared/shared.module';
 import { CaroucelComponent } from './components/article/caroucel/caroucel.component';
-import { CardArticleComponent } from './components/card-article/card-article.component';
+import { CardArticleComponent } from '../shared/card-article/card-article.component';
 
 
 @NgModule({
   declarations: [
     ArticleComponent,
     CaroucelComponent,
-    CardArticleComponent
   ],
   imports: [
     CommonModule,

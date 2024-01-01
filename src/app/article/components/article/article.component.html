@@ -29,9 +29,11 @@
         </div>
         <div class="list-article">
             <div class="card-article" *ngFor="let article of listeArticles">
-                <app-card-article [article]="article"></app-card-article>
+                <app-card-article [article]="article" (artcleIdToDisplay)="displayArticleById($event)" ></app-card-article>
             </div>
         </div>
     </div>
 
 </div>
+
+

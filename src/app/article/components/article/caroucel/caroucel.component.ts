@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Menu } from 'src/app/shared/interfaces/menu';
 
 @Component({
@@ -8,5 +8,9 @@ import { Menu } from 'src/app/shared/interfaces/menu';
 })
 export class CaroucelComponent {
   @Input() menu : Menu = <Menu>{};
+  @Output() artcleIdToDisplay = new EventEmitter<number>();
+  displayArticle(event : number){
+    this.artcleIdToDisplay.emit(event);
+  }
 
 }

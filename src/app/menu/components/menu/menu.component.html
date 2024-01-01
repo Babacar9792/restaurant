@@ -1,4 +1,22 @@
 <div class="content-menu">
     <div class="header-menu">1</div>
-    <div class="main-menu">2</div>
+    <div class="main-menu">
+        <h3>Les menus programmée</h3>
+        <mat-accordion>
+            <mat-expansion-panel hideToggle *ngFor="let menu of listeMenu">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                 {{menu.libelle}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="list-article">
+                    <div class="card-article" *ngFor="let article of menu.articles">
+                        <app-card-article [article]="article"></app-card-article>
+                    </div> 
+                </div>
+            </mat-expansion-panel>
+            
+          </mat-accordion>
+          
+    </div>
 </div>

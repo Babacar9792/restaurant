@@ -41,14 +41,17 @@ export class ArticleComponent implements OnInit {
       libelle : "menu 1",
       articles : [
             {
+              id : 1,
             libelle : "article 1",
             montant : 3000
             },
             {
+              id : 2,
               libelle : "article 2",
               montant : 3000
             },
             {
+              id : 5,
               libelle : "article 5",
               montant : 3000
               }
@@ -58,14 +61,17 @@ export class ArticleComponent implements OnInit {
       libelle : "menu 2",
       articles : [
         {
+          id : 2,
         libelle : "article 2",
         montant : 3000
         },
         {
+          id : 8,
           libelle : "article 8",
           montant : 3000
         },
         {
+          id : 3,
           libelle : "article 3",
           montant : 3000
         }
@@ -74,6 +80,7 @@ export class ArticleComponent implements OnInit {
     {
       libelle : "menu 3",
       articles : [{
+        id : 3,
         libelle : "article 3",
         montant : 3000
       }]
@@ -104,7 +111,7 @@ constructor(private articleService : ArticleService){
       
     })
   }
-  
+
   displayOtherMenu(value : string){
       if(value == '-1'){
         this.currentMenuIndex = this.currentMenuIndex == 0 ? this.menuForCarousel.length - 1 : this.currentMenuIndex - 1;
@@ -123,6 +130,10 @@ constructor(private articleService : ArticleService){
         this.currentMenuIndex++;
       }
     }, 4000)
+  }
+
+  displayArticleById(event : number){
+    console.log(this.listeArticles.find(ele => ele.id == event));
   }
 
   openSearhInput(inputBox : any){

@@ -15,6 +15,22 @@
 
 .main-menu{
     width: 100%;
-    height: 60%;
-    background-color: blue;
+    height: auto;
+    // background-color: blue;
+}
+
+.main-menu h3{
+    text-align: center;
+}
+
+.list-article{
+    width: 100%;
+    height: 13em;
+    display: flex;
+    gap: 1em;
+}
+
+.card-article{
+    width: 20%;
+    height: 100%;
 }

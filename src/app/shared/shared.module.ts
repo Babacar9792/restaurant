@@ -16,6 +16,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatDialogModule} from '@angular/material/dialog';
 import { MatSortModule} from '@angular/material/sort';
+import { CardArticleComponent } from './card-article/card-article.component';
 
 
 
@@ -23,7 +24,7 @@ import { MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
-   
+   CardArticleComponent
 
     
   ],
@@ -63,6 +64,7 @@ import { MatSortModule} from '@angular/material/sort';
     MatProgressBarModule,
     MatDialogModule,
     MatSortModule,
+    CardArticleComponent
     // BrowserAnimationsModule 
 
 

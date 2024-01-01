@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { MenuRoutingModule } from './menu-routing.module';
 import { MenuComponent } from './components/menu/menu.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { MenuComponent } from './components/menu/menu.component';
   ],
   imports: [
     CommonModule,
-    MenuRoutingModule
+    MenuRoutingModule,
+    MatExpansionModule,
+    SharedModule
   ]
 })
 export class MenuModule { }

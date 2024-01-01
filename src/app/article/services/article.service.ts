@@ -13,6 +13,7 @@ export class ArticleService {
     for (let i = 0; i < 30; i++) {
       // const element = array[i];
       this.articles.push({
+        id : i,
         libelle : "article "+i,
         montant : Math.random()*10
       })
